@@ -76,8 +76,15 @@
       document.querySelectorAll('.lang').forEach(btn=>btn.classList.toggle('active',btn.dataset.lang===lang));
       localStorage.setItem('portfolioLanguage',lang);
     }
-    document.querySelectorAll('.lang').forEach(btn=>btn.addEventListener('click',()=>setLanguage(btn.dataset.lang)));
-    setLanguage(localStorage.getItem('portfolioLanguage')||'en');
+    function selectLanguage(lang){
+      setLanguage(lang);
+      const url=new URL(window.location.href);
+      url.searchParams.set('lang',lang);
+      history.replaceState(null,'',url);
+    }
+    document.querySelectorAll('.lang').forEach(btn=>btn.addEventListener('click',()=>selectLanguage(btn.dataset.lang)));
+    const requestedLanguage=new URLSearchParams(window.location.search).get('lang');
+    setLanguage(translations[requestedLanguage]?requestedLanguage:(localStorage.getItem('portfolioLanguage')||'en'));
     document.getElementById('contactForm').addEventListener('submit',async function(e){
       e.preventDefault();
       const button=this.querySelector('button');
