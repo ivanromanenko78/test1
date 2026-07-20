@@ -74,7 +74,7 @@
   </style>
 </head>
 <body>
-  <nav><div class="wrap"><a class="logo" href="#top">IVAN<span>.</span></a><div class="nav-right"><div class="navlinks"><a href="#work" data-i18n="navWork">Work</a><a href="#about" data-i18n="navAbout">About</a><a href="#contact" data-i18n="navContact">Contact</a></div><div class="languages"><button class="lang active" data-lang="en">EN</button><button class="lang" data-lang="pt">PT</button><button class="lang" data-lang="uk">UA</button><button class="lang" data-lang="ru">RU</button></div></div></div></nav>
+  <nav><div class="wrap"><a class="logo" href="#top">IVAN<span>.</span></a><div class="nav-right"><div class="navlinks"><a href="#work" data-i18n="navWork">Work</a><a href="#about" data-i18n="navAbout">About</a><a href="#contact" data-i18n="navContact">Contact</a><a id="marketingNav" href="/marketing/?lang=en">Marketing</a></div><div class="languages"><button class="lang active" data-lang="en">EN</button><button class="lang" data-lang="pt">PT</button><button class="lang" data-lang="ua">UA</button><button class="lang" data-lang="ru">RU</button></div></div></div></nav>
   <main id="top">
     <header class="hero"><div class="wrap"><div class="hero-grid"><div>
       <div class="eyebrow" data-i18n="availability">Available for remote freelance work</div>
@@ -137,6 +137,7 @@
       document.querySelectorAll('[data-i18n]').forEach(el=>{const v=translations[lang][el.dataset.i18n];if(v)el.textContent=v});
       document.querySelectorAll('[data-i18n-html]').forEach(el=>{const v=translations[lang][el.dataset.i18nHtml];if(v)el.innerHTML=v});
       document.querySelectorAll('.lang').forEach(btn=>btn.classList.toggle('active',btn.dataset.lang===lang));
+      document.getElementById('marketingNav').href='/marketing/?lang='+lang;
       document.getElementById('cookieText').textContent=cookieTranslations[lang].text;
       document.getElementById('declineAnalytics').textContent=cookieTranslations[lang].decline;
       document.getElementById('acceptAnalytics').textContent=cookieTranslations[lang].accept;
