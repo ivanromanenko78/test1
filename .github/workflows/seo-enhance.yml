@@ -1,0 +1,35 @@
+name: SEO Enhance
+
+on:
+  push:
+    paths:
+      - "scripts/seo_enhance.py"
+      - ".github/workflows/seo-enhance.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-seo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate SEO pages and metadata
+        run: python3 scripts/seo_enhance.py
+
+      - name: Commit generated SEO changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html camera/index.html motion/index.html marketing/index.html assets/portfolio.js robots.txt sitemap.xml favicon.svg en uk ru
+          if git diff --cached --quiet; then
+            echo "No SEO changes"
+          else
+            git commit -m "Apply SEO enhancements"
+            git push
+          fi
